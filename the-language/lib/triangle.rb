@@ -14,7 +14,14 @@
 #   about_triangle_project_2.rb
 #
 def triangle(a, b, c)
-  # WRITE THIS CODE
+	side_count_map = { 3 => :equilateral, 2 => :isosceles, 1 => :scalene }
+	total_sides_equal = equal_side_count(a, b, c)
+	side_count_map[total_sides_equal]
+end
+
+def equal_side_count(a, b, c)
+	sides = [a,b,c]
+	sides.size + 1 - sides.uniq.size
 end
 
 # Error class used in part 2.  No need to change this code.
