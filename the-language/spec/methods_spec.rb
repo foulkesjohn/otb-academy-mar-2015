@@ -130,4 +130,40 @@ RSpec.describe "methods in ruby" do
 
   end
 
+	class ProtectedClass 
+
+		def initialize(other_object = nil)
+			@other_object = other_object
+		end
+
+		def call_protected_method
+			@other_object.protected_method
+		end
+
+		protected
+
+		def protected_method
+			:protected_value
+		end
+
+	end
+	
+	context "objects of same type" do
+
+		let(:an_object) { ProtectedClass.new() }
+		let(:other_object) { ProtectedClass.new(an_object) }
+
+		it "is possible to call protected methods" do
+			expect(other_object.call_protected_method).to eq(:protected_value)
+		end
+
+	end
+
+	context "objects of different types" do
+
+		it "is not possible to call protected methods" do
+		end
+
+	end
+
 end
