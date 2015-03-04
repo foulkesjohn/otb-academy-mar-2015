@@ -35,6 +35,17 @@ RSpec.describe 'A line of bowling' do
 
 	end
 
+	context 'when line is mixed spares and strike' do
+
+		let(:rolls) { [ 2,4,5,3,1,6,8,2,0,2,6,4,10,7,3,0,10,6,4,7 ] }
+		let(:line) { Line.new(rolls) }
+
+		it 'has score of 155' do
+			expect(line.score).to eq(116)
+		end
+
+	end
+
 	context 'when line is all spares and open' do
 
 		let(:rolls) { [ 6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,6,4,7 ] }
