@@ -1,4 +1,5 @@
 # Greed is a dice game where you roll up to five dice to accumulate
+#
 # points.  The following "score" function will be used to calculate the
 # score of a single roll of the dice.
 #
@@ -28,7 +29,39 @@
 # Your goal is to write the score method.
 
 def score(dice)
-  # You need to write this method
+
+	total = 0
+	totals(dice).each do |key,value|
+		total += num_score(key, value)
+	end
+
+	total
+
+end
+
+def num_score(key, value)
+	score = 0
+	remainder = value % 3
+	multiple = value / 3
+
+	score_points = points(key)
+
+	single_point = score_points.fetch(1, 0)
+	multiple_point = score_points.fetch(3, 100 * key)
+
+	(single_point * remainder) + multiple_point * multiple
+end
+
+def totals(dice)
+	dice.each_with_object(Hash.new(0)) do |num,totals|
+		totals[num] += 1
+	end
+end
+
+def points(num)
+	points = { 1 => { 1 => 100, 3 => 1000 },
+						 5 => { 1 => 50,  3 => 500  } }
+	points.fetch(num, {})
 end
 
 RSpec.describe "scorign a game of greed" do
